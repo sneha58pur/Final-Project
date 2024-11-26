@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Glamour Cottage</string>
+    <string name="introTitle"><font color="#2B4678">Welcome to \n  Glamour Cottage</font></string>
+    <string name="Subtitle"><font color="#0000000">"Enjoy your shopping with glamour"</font></string>
+    <string name="enter">Enter</string>
+    <string name="login_title">Login!!</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="loginTitle">Login</string>
+    <string name="tv_notice">"Don't have an account? Sign up here"</string>
+    <string name="signRegister">Sign Up</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="phone">Phone</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="passwordRegister">Password</string>
+    <string name="emailRegister">Email</string>
+    <string name="usernameRegister">Username</string>
+    <string name="pass">Pass</string>
+
+
+</resources>
