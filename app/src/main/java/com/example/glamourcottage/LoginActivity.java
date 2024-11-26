@@ -26,6 +26,9 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v->{
 
 
+
+
+
             String username = etUsername.getText().toString();
             String password = etPassword.getText().toString();
             if (username.isEmpty() || password.isEmpty()) {
@@ -33,15 +36,41 @@ public class LoginActivity extends AppCompatActivity {
             }
 
 
-//
+            else{
 
+                if(username.equals("admin") && password.equals("admin")){
+                    Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class); // Assuming HomeActivity is the activity after login
+                    startActivity(intent);
+                }
+
+                else{
+
+                    DatabaseHelper database = new DatabaseHelper(LoginActivity.this);
+                    boolean result = database.checkUserByUsername(username, password);
+                    if (result) {
+                        Toast.makeText(LoginActivity.this, "Welcome valid user!!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, ProductDisplayActivity.class); // Assuming HomeActivity is the activity after login
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Invalid Username and password!", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                }
+            }
         });
 
         btnSign.setOnClickListener(v -> {
+            // Implement your sign up logic here
             Toast.makeText(LoginActivity.this, "Sign up clicked", Toast.LENGTH_SHORT).show();
-
+            // Navigate to sign up activity if needed
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
     }
 }
+
+
+
+
+

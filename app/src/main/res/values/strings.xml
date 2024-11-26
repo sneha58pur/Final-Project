@@ -17,6 +17,10 @@
     <string name="emailRegister">Email</string>
     <string name="usernameRegister">Username</string>
     <string name="pass">Pass</string>
+    <string name="Title">Title\n</string>
+    <string name="title_pro">Title</string>
+    <string name="product_price">Product price</string>
+    <string name="product_name">Product name</string>
 
 
 </resources>
