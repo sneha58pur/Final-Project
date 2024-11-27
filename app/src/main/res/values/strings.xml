@@ -21,6 +21,27 @@
     <string name="title_pro">Title</string>
     <string name="product_price">Product price</string>
     <string name="product_name">Product name</string>
+    <string name="Welcome_admin">Welcome Admin</string>
+    <string name="insert">Insert</string>
+    <string name="view_product">View Product</string>
+    <string name="insert_product">Insert Product</string>
+    <string name="select_image">Select Image</string>
+    <string name="add_product">Add Product</string>
+    <string name="update">Update Product</string>
+    <string name="delete">Delete Product</string>
+    <string name="to_update_search_a_product">To Update Search A Product</string>
+    <string name="update_product_name">Update Product Name</string>
+    <string name="update_product_price">Update Product Price</string>
+    <string name="update_product_id">Update Product ID</string>
+    <string name="update_select_image">Update Select Image</string>
+    <string name="update_search">Update Search</string>
+    <string name="update_product">Update Product</string>
+    <string name="to_delete_search_it">To Delete Search It</string>
+    <string name="delete_product_name">Product Name</string>
+    <string name="delete_product_price">Product Price</string>
+    <string name="product_id">Product ID</string>
+    <string name="search">Search It</string>
+    <string name="delete_product">Delete Product</string>
 
 
 </resources>

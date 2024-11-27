@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/lightGreen"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/text_view_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="@string/to_update_search_a_product"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+
+
+
+    <EditText
+        android:id="@+id/edit_text_product_name"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:autofillHints=""
+        android:inputType="text"
+        android:hint="@string/update_product_name" />
+
+    <EditText
+        android:id="@+id/edit_text_product_price"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:autofillHints=""
+        android:layout_marginBottom="16dp"
+        android:hint="@string/update_product_price"
+        android:inputType="numberDecimal" />
+
+
+    <TextView
+        android:id="@+id/text_view_product_id"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/update_product_id"
+        android:padding="8dp"
+
+        android:textSize="16sp"
+        android:enabled="false" />
+    <ImageView
+        android:id="@+id/image_view_product"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/button_select_image"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/update_select_image"
+        android:layout_marginTop="16dp" />
+
+
+
+    <Button
+        android:id="@+id/button_search"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/design_default_color_secondary_variant"
+        android:text="@string/update_search" />
+
+    <Button
+        android:id="@+id/button_update"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+
+        android:backgroundTint="#E91E63"
+        android:text="@string/update_product" />
+
+
+</LinearLayout>

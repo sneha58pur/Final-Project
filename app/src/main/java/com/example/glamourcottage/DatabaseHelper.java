@@ -57,7 +57,7 @@ import android.database.sqlite.SQLiteOpenHelper;
                 product_price_col + " REAL, " +
                 product_image_URI_col + " BLOB)");
 
-//        db.execSQL("CREATE TABLE " + TABLE_ORDERS + " (" +
+         //        db.execSQL("CREATE TABLE " + TABLE_ORDERS + " (" +
 //                col_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 //                name_col + " TEXT, " +
 //                address_col + " TEXT, " +
@@ -75,14 +75,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 
-    public boolean insertUser(String name, String email, String pass, String phone) {
+    public boolean insertUser(String name, String email, String phone, String pass) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(username_col, name);
         contentValues.put(email_col, email);
-        contentValues.put(pass_col, pass);
+
         contentValues.put(phone_col, phone);
+        contentValues.put(pass_col, pass);
+
 
         long result = db.insert(SignUp_table, null, contentValues);
         //result value, if inserted, then "row number"
@@ -92,11 +94,11 @@ import android.database.sqlite.SQLiteOpenHelper;
     }
 
 
-    public boolean checkUserByUsername(String name, String pass) {
+    public boolean checkUserByUsername(String username, String password) {
 
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + SignUp_table + " WHERE " + username_col + " = ? AND " + pass_col + " = ?", new String[]{name, pass});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + SignUp_table + " WHERE " + username_col + " = ? AND " + pass_col + " = ?", new String[]{username, password});
         boolean exists = cursor.getCount() > 0;
         cursor.close();
         return exists;

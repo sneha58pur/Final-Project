@@ -10,6 +10,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+/** @noinspection ALL*/
 public class LoginActivity extends AppCompatActivity {
 
     @Override
