@@ -40,17 +40,43 @@ public class ProductDisplayActivity extends AppCompatActivity {
         List<Product> productList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
-            @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.product_name_col));
-            @SuppressLint("Range") double price = cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.product_price_col));
-            @SuppressLint("Range") byte[] image = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.product_image_URI_col));
+            @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.PRODUCT_NAME_COL));
+            @SuppressLint("Range") double price = cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.PRODUCT_PRICE_COL));
+            @SuppressLint("Range") byte[] image = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.PRODUCT_IMAGE_URI_COL));
 
             productList.add(new Product(name, price, image));
         }
         cursor.close();
 
-        // Set up the adapter and attach it to the ListView
+
         ProductAdapter adapter = new ProductAdapter(this, productList);
-        listView.setAdapter(adapter);
+
+//        ProductAdapter adapter = new ProductAdapter(this, productList, product -> {
+//             //Handle the image click event here
+//            Intent intent = new Intent(ProductDisplayActivity.this, OrderActivity.class);
+//            intent.putExtra("productName", product.getName());
+//            intent.putExtra("productPrice", product.getPrice());
+//            intent.putExtra("productImage", product.getImage());
+//            startActivity(intent);
+//        });
+
+
+
+
+
+
+
+
+
+
+        listView.setAdapter(adapter) ;
     }
+
+
+
+
+
+
+
 
 }

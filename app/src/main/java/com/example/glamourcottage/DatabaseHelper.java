@@ -1,167 +1,150 @@
 package com.example.glamourcottage;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+public class DatabaseHelper extends SQLiteOpenHelper {
+    public static final String DATABASE_NAME = "My_DB";
+    public static final int DATABASE_VERSION = 2;
 
+    // User Table
+    public static final String SIGNUP_TABLE = "register";
+    public static final String COL_ID = "_id";
+    public static final String USERNAME_COL = "name";
+    public static final String EMAIL_COL = "email";
+    public static final String PASS_COL = "pass";
+    public static final String PHONE_COL = "phone";
 
-    public class DatabaseHelper extends SQLiteOpenHelper {
-        public static final String Database_name = "My_DB";
-        public static final int version = 2;
-        //user table
-        public static final String SignUp_table = "register";
-        static final String col_id = "_id";
-        public static final String username_col = "name";
-        public static final String email_col = "email";
-        public static final String pass_col = "pass";
-        public static final String phone_col = "phone";
-      //product table
-        public static final String TABLE_PRODUCTS = "products";
-        public static final String product_name_col = "productName";
-        public static final String product_price_col = "productPrice";
-        public static final String product_image_URI_col = "productImageUri";
-//order table
-//        public static final String TABLE_ORDERS = "orders";
-//        public static final String name_col = "name";
-//        public static final String address_col = "address";
-//        public static final String item_col = "item";
+    // Product Table
+    public static final String TABLE_PRODUCTS = "products";
+    public static final String PRODUCT_NAME_COL = "productName";
+    public static final String PRODUCT_PRICE_COL = "productPrice";
+    public static final String PRODUCT_IMAGE_URI_COL = "productImageUri";
 
+    // Order Table
+    public static final String ORDER_TABLE = "orders";
+    public static final String ORDER_ID = "id";
+    public static final String ORDER_PRODUCT_NAME = "product_name";
+    public static final String ORDER_PRODUCT_PRICE = "product_price";
+    public static final String ORDER_QUANTITY = "quantity";
+    public static final String ORDER_SIZE = "size";
 
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        // Create the User table
+        db.execSQL("CREATE TABLE " + SIGNUP_TABLE + " (" +
+                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                USERNAME_COL + " TEXT, " +
+                EMAIL_COL + " TEXT, " +
+                PASS_COL + " TEXT, " +
+                PHONE_COL + " TEXT)");
 
-        public DatabaseHelper(Context context) {
-        super(context, Database_name, null, version);
+        // Create the Product table
+        db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (" +
+                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                PRODUCT_NAME_COL + " TEXT, " +
+                PRODUCT_PRICE_COL + " REAL, " +
+                PRODUCT_IMAGE_URI_COL + " BLOB)");
+
+        // Create the Order table
+        String CREATE_ORDER_TABLE = "CREATE TABLE " + ORDER_TABLE + " (" +
+                ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                ORDER_PRODUCT_NAME + " TEXT, " +
+                ORDER_PRODUCT_PRICE + " REAL, " +
+                ORDER_QUANTITY + " INTEGER, " +
+                ORDER_SIZE + " TEXT)";
+        db.execSQL(CREATE_ORDER_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + SignUp_table);
-        onCreate(db);
-    }
-    @Override
-
-
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + SignUp_table + " (" +
-                col_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                username_col + " TEXT, " +
-                email_col + " TEXT, " +
-                pass_col + " TEXT, " +
-                phone_col + " TEXT)");
-
-        db.execSQL("CREATE TABLE " + TABLE_PRODUCTS + " (" +
-                col_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                product_name_col + " TEXT, " +
-                product_price_col + " REAL, " +
-                product_image_URI_col + " BLOB)");
-
-         //        db.execSQL("CREATE TABLE " + TABLE_ORDERS + " (" +
-//                col_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-//                name_col + " TEXT, " +
-//                address_col + " TEXT, " +
-//                item_col + " TEXT)");
-
-
-
-
-
-
-
+        // Drop existing tables and recreate them
+        db.execSQL("DROP TABLE IF EXISTS " + SIGNUP_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
+        db.execSQL("DROP TABLE IF EXISTS " + ORDER_TABLE);
+        onCreate(db);  // Recreate all tables
     }
 
-
-
-
-
+    // Insert User
     public boolean insertUser(String name, String email, String phone, String pass) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues contentValues = new ContentValues();
-        contentValues.put(username_col, name);
-        contentValues.put(email_col, email);
+        contentValues.put(USERNAME_COL, name);
+        contentValues.put(EMAIL_COL, email);
+        contentValues.put(PHONE_COL, phone);
+        contentValues.put(PASS_COL, pass);
 
-        contentValues.put(phone_col, phone);
-        contentValues.put(pass_col, pass);
-
-
-        long result = db.insert(SignUp_table, null, contentValues);
-        //result value, if inserted, then "row number"
-        //result value, if not inserted, then -1
-
+        long result = db.insert(SIGNUP_TABLE, null, contentValues);
         return result != -1;
     }
 
-
+    // Check if a user exists by username and password
     public boolean checkUserByUsername(String username, String password) {
-
-
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + SignUp_table + " WHERE " + username_col + " = ? AND " + pass_col + " = ?", new String[]{username, password});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + SIGNUP_TABLE + " WHERE " + USERNAME_COL + " = ? AND " + PASS_COL + " = ?", new String[]{username, password});
         boolean exists = cursor.getCount() > 0;
         cursor.close();
         return exists;
-
     }
 
+    // Insert Product
     public void insertProduct(String name, double price, byte[] imageByteArray) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(product_name_col, name);
-        values.put(product_price_col, price);
-        values.put(product_image_URI_col, imageByteArray);
+        values.put(PRODUCT_NAME_COL, name);
+        values.put(PRODUCT_PRICE_COL, price);
+        values.put(PRODUCT_IMAGE_URI_COL, imageByteArray);
         db.insert(TABLE_PRODUCTS, null, values);
         db.close();
     }
-    ////insert complete
 
-
+    // Get all Products
     public Cursor getAllProducts() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_PRODUCTS, null);
     }
 
+    // Get Product by name
     public Cursor getProductByName(String productName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + product_name_col + " = ?", new String[]{productName});
-
+        return db.rawQuery("SELECT * FROM " + TABLE_PRODUCTS + " WHERE " + PRODUCT_NAME_COL + " = ?", new String[]{productName});
     }
-    //}//getting product from
 
-
-
+    // Update Product
     public void updateProduct(int productId, String productName, double price, byte[] productImageByteArray) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-
-
-        values.put(product_name_col, productName);
-        values.put(product_price_col, price);
-
-        values.put(product_image_URI_col, productImageByteArray);
-
-        db.update(TABLE_PRODUCTS, values, col_id + " = ?", new String[]{String.valueOf(productId)});
+        values.put(PRODUCT_NAME_COL, productName);
+        values.put(PRODUCT_PRICE_COL, price);
+        values.put(PRODUCT_IMAGE_URI_COL, productImageByteArray);
+        db.update(TABLE_PRODUCTS, values, COL_ID + " = ?", new String[]{String.valueOf(productId)});
         db.close();
-
-
     }
 
+    // Delete Product by name
     public void deleteProduct(String productName) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_PRODUCTS, product_name_col + " = ?", new String[]{productName});
+        db.delete(TABLE_PRODUCTS, PRODUCT_NAME_COL + " = ?", new String[]{productName});
         db.close();
     }
 
+    // Insert Order
+    public void insertOrder(String productName, double productPrice, int quantity, String size) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(ORDER_PRODUCT_NAME, productName);
+        values.put(ORDER_PRODUCT_PRICE, productPrice);
+        values.put(ORDER_QUANTITY, quantity);
+        values.put(ORDER_SIZE, size);
 
-
-
-
+        db.insert(ORDER_TABLE, null, values);
+        db.close();
     }
-
-
-
-
-
-
-
+}

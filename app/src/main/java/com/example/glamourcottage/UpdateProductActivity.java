@@ -71,10 +71,10 @@ public class UpdateProductActivity extends AppCompatActivity {
 
         Cursor cursor = database.getProductByName(productName);
         if (cursor != null && cursor.moveToFirst()) {
-            int productId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.col_id));
-            double price = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.product_price_col));
+            int productId = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_ID));
+            double price = cursor.getDouble(cursor.getColumnIndexOrThrow(DatabaseHelper.PRODUCT_PRICE_COL));
 
-            byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow(DatabaseHelper.product_image_URI_col));
+            byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow(DatabaseHelper.PRODUCT_IMAGE_URI_COL));
 
             editTextPrice.setText(String.valueOf(price));
 

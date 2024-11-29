@@ -2,6 +2,7 @@ package com.example.glamourcottage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -69,13 +70,47 @@ public class ProductAdapter extends BaseAdapter {
             holder.productImage.setImageResource(R.drawable.ic_launcher_background); // Default image
         }
 
+
+
+
+
+//        holder.productImage.setOnClickListener(v -> {
+//            // Navigate to OrderActivity and pass product details
+//            Intent intent = new Intent(context, OrderActivity.class);
+//            intent.putExtra("productName", product.getName());
+//            intent.putExtra("productPrice", product.getPrice());
+//            intent.putExtra("productImage", product.getImage());
+//            context.startActivity(intent);
+//        });
+
+
+        // Set OnClickListener on the CardView
+//        holder.cardView.setOnClickListener(v -> {
+//            Intent intent = new Intent(context, OrderActivity.class);
+//            intent.putExtra("productName", product.getName());
+//            intent.putExtra("productPrice", product.getPrice());
+//            intent.putExtra("productImage", product.getImage());
+//            context.startActivity(intent);
+//        });
+
+        convertView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, OrderActivity.class);
+            intent.putExtra("productName", product.getName());
+            intent.putExtra("productPrice", product.getPrice());
+            intent.putExtra("productImage", product.getImage());
+            context.startActivity(intent);
+        });
+
+
         return convertView;
     }
 
     // ViewHolder to optimize view reuse
     private static class ViewHolder {
+
         TextView productName;
         TextView productPrice;
         ImageView productImage;
+        androidx.cardview.widget.CardView cardView;
     }
 }

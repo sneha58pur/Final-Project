@@ -17,6 +17,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         Button btnInsertProduct =findViewById(R.id.btn_insert_product);
          Button btnViewProduct =findViewById(R.id.btn_view_product);
+         Button btnOrderView= findViewById(R.id.btn_view_order_product);
 
         btnInsertProduct.setOnClickListener(v -> {
             Intent intent = new Intent(AdminHomeActivity.this, InsertProductActivity.class);
@@ -27,6 +28,14 @@ public class AdminHomeActivity extends AppCompatActivity {
          Intent intent = new Intent(AdminHomeActivity.this,ViewProductActivity.class);
         startActivity(intent);
            });
+
+        btnOrderView.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminHomeActivity.this,ViewOrderActivity.class);
+            startActivity(intent);
+        });
+
+
+
 
     }
 }

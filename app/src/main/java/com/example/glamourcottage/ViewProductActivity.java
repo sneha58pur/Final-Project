@@ -49,9 +49,9 @@ public class ViewProductActivity extends AppCompatActivity {
 
         // Extract data from the Cursor and populate the product list
         while (cursor.moveToNext()) {
-            @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.product_name_col));
-            @SuppressLint("Range") double price = cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.product_price_col));
-            @SuppressLint("Range") byte[] image = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.product_image_URI_col));
+            @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.PRODUCT_NAME_COL));
+            @SuppressLint("Range") double price = cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.PRODUCT_PRICE_COL));
+            @SuppressLint("Range") byte[] image = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.PRODUCT_IMAGE_URI_COL));
             productList.add(new Product(name, price, image));
         }
         cursor.close();
