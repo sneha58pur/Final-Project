@@ -58,6 +58,12 @@
     <string name="place_order">Place Order</string>
     <string name="product_name_view">Product Name</string>
     <string name="product_price_view">Product Price</string>
+    <string name="product_quantity_view">Product Quantity</string>
+    <string name="order_summaries">Order Summaries</string>
+    <string name="product_size">Product Size</string>
+    <string name="total_price">Total Price</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="product_size_view">Order Size</string>
 
 
 </resources>

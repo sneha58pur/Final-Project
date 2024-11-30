@@ -2,38 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="8dp">
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/orderProductNameTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:textSize="18sp"
 
-        <TextView
-            android:id="@+id/orderProductNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        android:text="@string/product_name_view" />
 
-            android:drawablePadding="8dp"
-            android:text="@string/product_name_view"
-            android:textColor="@color/black"
+    <TextView
+        android:id="@+id/orderPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/product_price_view" />
 
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingBottom="4dp" />
+    <TextView
+        android:id="@+id/orderQuantityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/product_quantity_view" />
 
-        <TextView
-            android:id="@+id/orderPriceTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
-            android:drawablePadding="8dp"
-            android:text="@string/product_price_view"
-            android:textColor="@color/black"
-
-            android:textSize="16sp"
-            android:paddingBottom="4dp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/orderSizeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/product_size_view"/>
 </LinearLayout>

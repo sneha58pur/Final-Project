@@ -1,17 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    tools:ignore="VisualLintBounds">
+    <TextView
+        android:id="@+id/orderSummaryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_summaries"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
 
-    <ListView
-        android:id="@+id/orderListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="8dp"
-        android:padding="8dp" />
+    <ImageView
+        android:id="@+id/orderSummaryImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/orderSummaryProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "@string/product_name_view"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:paddingStart="16dp"/>
+
+    <TextView
+        android:id="@+id/orderSummaryPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/product_price_view"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:paddingStart="16dp"/>
+
+    <TextView
+        android:id="@+id/orderSummaryQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/product_quantity_view"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:paddingStart="16dp"/>
+
+    <TextView
+        android:id="@+id/orderSummarySize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/product_size_view"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:paddingStart="16dp"/>
+
+    <TextView
+        android:id="@+id/orderSummaryTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total_price"
+        android:textSize="16sp"
+        android:paddingStart="16dp"/>
+
+</LinearLayout>

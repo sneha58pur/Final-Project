@@ -1,54 +1,50 @@
 package com.example.glamourcottage;
 
-import android.database.Cursor;
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.widget.ListView;
-
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ViewOrderActivity extends AppCompatActivity {
 
-    private ListView listViewOrder;
-    private DatabaseHelper databaseHelper;
+    private TextView productNameTextView, productPriceTextView, quantityTextView, sizeTextView, totalTextView;
+    private ImageView productImageView;
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_order);
 
-        // Initialize views and database helper
-        listViewOrder = findViewById(R.id.orderListView);
-        databaseHelper = new DatabaseHelper(this);
+        // Initialize views
+        productNameTextView = findViewById(R.id.orderSummaryProductName);
+        productPriceTextView = findViewById(R.id.orderSummaryPrice);
+        quantityTextView = findViewById(R.id.orderSummaryQuantity);
+        sizeTextView = findViewById(R.id.orderSummarySize);
+        totalTextView = findViewById(R.id.orderSummaryTotal);
+        productImageView = findViewById(R.id.orderSummaryImage);
 
-        // Display orders when the activity is created
-        displayOrder();
-    }
+        // Get order details from Intent
+        String productName = getIntent().getStringExtra("productName");
+        double productPrice = getIntent().getDoubleExtra("productPrice", 0.0);
+        int quantity = getIntent().getIntExtra("quantity", 1);
+        String productSize = getIntent().getStringExtra("productSize");
+        byte[] productImage = getIntent().getByteArrayExtra("productImage");
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Refresh the displayed orders when the activity is resumed
-        displayOrder();
-    }
+        // Set the order details to the views
+        productNameTextView.setText("Product Name: " + productName);
+        productPriceTextView.setText("Price: $" + String.format("%.2f", productPrice));
+        quantityTextView.setText("Quantity: " + quantity);
+        sizeTextView.setText("Size: " + productSize);
+        totalTextView.setText("Total: $" + String.format("%.2f", productPrice * quantity));
 
-    private void displayOrder() {
-        // Fetch all orders from the database
-        Cursor cursor = databaseHelper.getAllOrders();
-        // Create and set the adapter to display orders in the ListView
-        OrderAdapter adapter = new OrderAdapter(this, cursor, 0);
-        listViewOrder.setAdapter(adapter);
+        // If product image is available, set it to ImageView
+        if (productImage != null) {
+            Bitmap productBitmap = BitmapFactory.decodeByteArray(productImage, 0, productImage.length);
+            productImageView.setImageBitmap(productBitmap);
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

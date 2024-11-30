@@ -1,6 +1,7 @@
 package com.example.glamourcottage;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class OrderActivity extends AppCompatActivity {
         productPriceTextView = findViewById(R.id.productPrice);
         quantityTextView = findViewById(R.id.quantityTextView);
         priceTextView = findViewById(R.id.priceTextView);
-        productImageView=findViewById(R.id.productImage);
+        productImageView = findViewById(R.id.productImage);
         sizeRadioGroup = findViewById(R.id.radioGroup);
         incrementButton = findViewById(R.id.increment);
         decrementButton = findViewById(R.id.decrement);
@@ -64,8 +65,6 @@ public class OrderActivity extends AppCompatActivity {
             productImageView.setImageBitmap(productBitmap);
         }
 
-
-
         // Increment button click listener
         incrementButton.setOnClickListener(v -> {
             quantity++;
@@ -83,6 +82,9 @@ public class OrderActivity extends AppCompatActivity {
         });
 
         // Place Order button click listener
+
+
+
         placeOrderButton.setOnClickListener(v -> {
             // Get selected size
             int selectedSizeId = sizeRadioGroup.getCheckedRadioButtonId();
@@ -95,11 +97,39 @@ public class OrderActivity extends AppCompatActivity {
                 dbHelper.insertOrder(productName, productPrice, quantity, productSize);
                 Toast.makeText(OrderActivity.this, "Order placed successfully", Toast.LENGTH_SHORT).show();
 
-                // Optionally, finish the activity or go back to another screen
-                finish();
+                // Pass order details to OrderSummaryActivity
+                Intent intent = new Intent(OrderActivity.this, ViewOrderActivity.class);
+                intent.putExtra("productName", productName);
+                intent.putExtra("productPrice", productPrice);
+                intent.putExtra("quantity", quantity);
+                intent.putExtra("productSize", productSize);
+                intent.putExtra("productImage", productImage); // Pass image as byte array
+                startActivity(intent);
             } else {
                 Toast.makeText(OrderActivity.this, "Please select a size", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+
+
+
+
+
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
