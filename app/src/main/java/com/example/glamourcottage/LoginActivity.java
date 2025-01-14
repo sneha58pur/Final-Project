@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // Initialize views
-        //etUsername = findViewById(R.id.et_username);
+
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
@@ -50,12 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             String email = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
 
-            // Validate inputs
-//            if (username.isEmpty()) {
-//                etUsername.setError("Username cannot be empty!");
-//                etUsername.requestFocus();
-//                return;
-//            }
+
 
             if (email.isEmpty()) {
                 etEmail.setError("Email cannot be empty!");
@@ -80,11 +75,10 @@ public class LoginActivity extends AppCompatActivity {
             // Firebase authentication for regular users
 
 
-
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    //progressBar.setVisibility(View.GONE);
+
                     FirebaseUser user = auth.getCurrentUser();
                     if (task.isSuccessful()) {
                         if (user != null && user.isEmailVerified()) {
@@ -92,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(), ProductDisplayActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                             finish();
                         }else {
-                            // Email not verified
+                            // If Email not verified
                             Toast.makeText(getApplicationContext(), "Please verify your email.", Toast.LENGTH_SHORT).show();
                             auth.signOut();
                         }

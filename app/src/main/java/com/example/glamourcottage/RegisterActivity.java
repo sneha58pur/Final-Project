@@ -41,9 +41,10 @@ public class RegisterActivity extends AppCompatActivity {
     private String name, email, phone, pass, gender;
 
     private final Pattern namePattern = Pattern.compile("[a-zA-Z ._]+");
-   // private final Pattern emailPattern = Pattern.compile("[a-z]+@(gmail)\\.com");
 
-   private final Pattern emailPattern = Pattern.compile("^(cse_)\\d{15}(@lus.ac.bd)$");
+
+    private Pattern emailPattern = Pattern.compile("^(cse_)\\d{15}(@lus.ac.bd)$");
+
     private final Pattern phonePattern = Pattern.compile("01[578][0-9]{8}");
     private final Pattern passPattern = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$%^&+=!]).{8,}");
 
@@ -83,9 +84,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // Set up sign-up button
+
         sign.setOnClickListener(v -> {
-            // Get user inputs
+
             name = nameEditText.getText().toString();
             email = emailEditText.getText().toString();
             phone = phoneEditText.getText().toString();

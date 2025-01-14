@@ -51,7 +51,8 @@ android:gravity="center">
     android:padding="12dp"
     android:layout_marginBottom="16dp"
     android:background="@android:drawable/edit_text"
-    android:autofillHints="Username" />
+    android:autofillHints="Username"
+        android:drawableStart="@drawable/baseline_person_24"/>
 
 
 <EditText
@@ -64,6 +65,7 @@ android:gravity="center">
     android:layout_marginBottom="16dp"
     android:background="@android:drawable/edit_text"
     android:autofillHints="email"
+    android:drawableStart="@drawable/baseline_email_24"
     tools:ignore="TextFields" />
 
 
@@ -76,6 +78,7 @@ android:gravity="center">
     android:padding="12dp"
     android:layout_marginBottom="16dp"
     android:background="@android:drawable/edit_text"
+        android:drawableStart="@drawable/baseline_local_phone_24"
     android:autofillHints="phone" />
 
 
@@ -86,6 +89,7 @@ android:gravity="center">
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
         android:layout_marginBottom="10dp"
+
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -95,6 +99,8 @@ android:gravity="center">
             android:autofillHints="pass"
             android:background="@android:drawable/edit_text"
             android:hint="@string/passwordRegister"
+
+
             android:inputType="textPassword"
 
             />
