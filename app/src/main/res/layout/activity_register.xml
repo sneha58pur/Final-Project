@@ -133,7 +133,6 @@ android:gravity="center">
 </LinearLayout>
 
 
-
 <!--for showing output -->
 <!--    <LinearLayout-->
 <!--        android:id="@+id/outputLayout"-->
@@ -152,5 +151,7 @@ android:gravity="center">
 <!--    </LinearLayout>-->
 
 </LinearLayout>
+
+
 
 

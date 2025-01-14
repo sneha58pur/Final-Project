@@ -64,6 +64,7 @@
     <string name="total_price">Total Price</string>
     <string name="order_summary">Order Summary</string>
     <string name="product_size_view">Order Size</string>
+    <string name="email">Email</string>
 
 
 </resources>

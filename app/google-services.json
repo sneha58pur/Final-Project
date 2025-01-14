@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "505131776662",
+    "project_id": "glamour-cottage",
+    "storage_bucket": "glamour-cottage.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505131776662:android:26af7fb343ef6d892a60b7",
+        "android_client_info": {
+          "package_name": "com.example.glamourcottage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzxDb4HrKjsgMtflc5Ww8HguCd9qRdpAw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

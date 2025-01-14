@@ -27,9 +27,7 @@
         <activity
             android:name=".InsertProductActivity"
             android:exported="false" />
-        <activity
-            android:name=".AdminHome"
-            android:exported="false" />
+
         <activity
             android:name=".AdminHomeActivity"
             android:exported="false" />

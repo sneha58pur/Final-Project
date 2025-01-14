@@ -10,32 +10,46 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Objects;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText nameEditText, emailEditText, phoneEditText;
     private TextInputEditText passEditText;
     private Spinner genderSpinner;
+    private FirebaseAuth auth;
+    private FirebaseFirestore firestore;
+
     private String name, email, phone, pass, gender;
 
     private final Pattern namePattern = Pattern.compile("[a-zA-Z ._]+");
-    private final Pattern emailPattern = Pattern.compile("[a-z]+@(gmail|yahoo)\\.com");
+   // private final Pattern emailPattern = Pattern.compile("[a-z]+@(gmail)\\.com");
+
+   private final Pattern emailPattern = Pattern.compile("^(cse_)\\d{15}(@lus.ac.bd)$");
     private final Pattern phonePattern = Pattern.compile("01[578][0-9]{8}");
     private final Pattern passPattern = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$%^&+=!]).{8,}");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -51,6 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
         passEditText = findViewById(R.id.pass);
         genderSpinner = findViewById(R.id.spinner);
         Button sign = findViewById(R.id.btn_signRegister);
+        auth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
         // Set up gender spinner
         String[] items = new String[]{"Gender :", "MALE", "FEMALE"};
@@ -70,78 +86,84 @@ public class RegisterActivity extends AppCompatActivity {
         // Set up sign-up button
         sign.setOnClickListener(v -> {
             // Get user inputs
-            name = nameEditText.getText().toString().trim();
-            email = emailEditText.getText().toString().trim();
-            phone = phoneEditText.getText().toString().trim();
-            pass = Objects.requireNonNull(passEditText.getText()).toString().trim();
+            name = nameEditText.getText().toString();
+            email = emailEditText.getText().toString();
+            phone = phoneEditText.getText().toString();
+            pass = passEditText.getText().toString();
+            genderSpinner = findViewById(R.id.spinner);
 
             // Validate inputs
-            if (!validateInputs()) {
-                return;
-            }
-
-            // Save to database
-            boolean isInserted;
-            try (DatabaseHelper db = new DatabaseHelper(RegisterActivity.this)) {
-                isInserted = db.insertUser(name, email, phone, pass);
-            }
-
-            if (isInserted) {
-                Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, ProductDisplayActivity.class);
-                startActivity(intent);
-                finish();
+            if (name.isEmpty()) {
+                nameEditText.setError("Name cannot be empty");
+                nameEditText.requestFocus();
+            } else if (!namePattern.matcher(name).matches()) {
+                nameEditText.setError("Name must contain only letters and spaces");
+                nameEditText.requestFocus();
+            } else if (email.isEmpty()) {
+                emailEditText.setError("Email cannot be empty");
+                emailEditText.requestFocus();
+            } else if (!emailPattern.matcher(email).matches()) {
+                emailEditText.setError("Invalid email format");
+                emailEditText.requestFocus();
+            } else if (phone.isEmpty()) {
+                phoneEditText.setError("Phone number cannot be empty");
+                phoneEditText.requestFocus();
+            } else if (!phonePattern.matcher(phone).matches()) {
+                phoneEditText.setError("Invalid phone number");
+                phoneEditText.requestFocus();
+            } else if (pass.isEmpty()) {
+                passEditText.setError("Password cannot be empty");
+                passEditText.requestFocus();
+            } else if (!passPattern.matcher(pass).matches()) {
+                passEditText.setError("Password must include uppercase, lowercase, number, and special character");
+                passEditText.requestFocus();
+            } else if ("Gender :".equals(gender)) {
+                Toast.makeText(this, "Please select a gender", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(RegisterActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = auth.getCurrentUser();
+                            sendEmailVerification(user); // Send email verification
+
+                            assert user != null;
+                            DocumentReference df = firestore.collection("Users").document(user.getUid());
+                            Map<String, String> userInfo = new HashMap<>();
+                            userInfo.put("email", user.getEmail());
+                            userInfo.put("name", name);
+                            userInfo.put("phone", phone);
+                            userInfo.put("gender",gender);
+
+                            userInfo.put("uid", user.getUid());
+                            df.set(userInfo);
+
+                            Toast.makeText(getApplicationContext(), "Successfully Registered!!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            finish();
+                        } else {
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                Toast.makeText(getApplicationContext(), "User Already Exist!!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
             }
         });
     }
 
-    private boolean validateInputs() {
-        if (name.isEmpty()) {
-            nameEditText.setError("Name cannot be empty");
-            nameEditText.requestFocus();
-            return false;
+    private void sendEmailVerification(FirebaseUser user) {
+        if (user != null && !user.isEmailVerified()) {
+            user.sendEmailVerification()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(this, "Verification email sent.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Error sending verification email.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
-        if (!namePattern.matcher(name).matches()) {
-            nameEditText.setError("Name must contain only letters and spaces");
-            nameEditText.requestFocus();
-            return false;
-        }
-        if (email.isEmpty()) {
-            emailEditText.setError("Email cannot be empty");
-            emailEditText.requestFocus();
-            return false;
-        }
-        if (!emailPattern.matcher(email).matches()) {
-            emailEditText.setError("Invalid email format");
-            emailEditText.requestFocus();
-            return false;
-        }
-        if (phone.isEmpty()) {
-            phoneEditText.setError("Phone number cannot be empty");
-            phoneEditText.requestFocus();
-            return false;
-        }
-        if (!phonePattern.matcher(phone).matches()) {
-            phoneEditText.setError("Invalid phone number");
-            phoneEditText.requestFocus();
-            return false;
-        }
-        if (pass.isEmpty()) {
-            passEditText.setError("Password cannot be empty");
-            passEditText.requestFocus();
-            return false;
-        }
-        if (!passPattern.matcher(pass).matches()) {
-            passEditText.setError("Password must include uppercase, lowercase, number, and special character");
-            passEditText.requestFocus();
-            return false;
-        }
-        if ("Gender :".equals(gender)) {
-            Toast.makeText(this, "Please select a gender", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
     }
 }
