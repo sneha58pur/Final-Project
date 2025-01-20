@@ -74,24 +74,6 @@ public class ProductAdapter extends BaseAdapter {
 
 
 
-//        holder.productImage.setOnClickListener(v -> {
-//            // Navigate to OrderActivity and pass product details
-//            Intent intent = new Intent(context, OrderActivity.class);
-//            intent.putExtra("productName", product.getName());
-//            intent.putExtra("productPrice", product.getPrice());
-//            intent.putExtra("productImage", product.getImage());
-//            context.startActivity(intent);
-//        });
-
-
-        // Set OnClickListener on the CardView
-//        holder.cardView.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, OrderActivity.class);
-//            intent.putExtra("productName", product.getName());
-//            intent.putExtra("productPrice", product.getPrice());
-//            intent.putExtra("productImage", product.getImage());
-//            context.startActivity(intent);
-//        });
 
         convertView.setOnClickListener(v -> {
             Intent intent = new Intent(context, OrderActivity.class);

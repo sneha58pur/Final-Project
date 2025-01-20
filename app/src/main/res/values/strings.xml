@@ -65,6 +65,10 @@
     <string name="order_summary">Order Summary</string>
     <string name="product_size_view">Order Size</string>
     <string name="email">Email</string>
+    <string name="username_order">Username</string>
+    <string name="product_name_or">Product Name</string>
+    <string name="price">Product Price</string>
+    <string name="order_list_by_user">Order List By User</string>
 
 
 </resources>

@@ -30,13 +30,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String PRODUCT_PRICE_COL = "productPrice";
     public static final String PRODUCT_IMAGE_URI_COL = "productImageUri";
 
+
     // Order Table
-    public static final String ORDER_TABLE = "orders";
-    public static final String ORDER_ID = "id";
-    public static final String ORDER_PRODUCT_NAME = "productName";
-    public static final String ORDER_PRODUCT_PRICE = "productPrice";
-    public static final String ORDER_QUANTITY = "quantity";
-    public static final String ORDER_SIZE = "productSize";
+    public static final String TABLE_ORDERS = "order_table";
+    public static final String COLUMN_ORDER_ID = "order_id";
+    public static final String COLUMN_ORDER_PRODUCT_NAME = "product_name";
+    public static final String COLUMN_ORDER_PRICE = "o_price";
+
 
     // Constructor
     public DatabaseHelper(Context context) {
@@ -61,12 +61,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 PRODUCT_IMAGE_URI_COL + " BLOB)");
 
         // Create Order Table
-        db.execSQL("CREATE TABLE " + ORDER_TABLE + " (" +
-                ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ORDER_PRODUCT_NAME + " TEXT, " +
-                ORDER_PRODUCT_PRICE + " REAL, " +
-                ORDER_QUANTITY + " INTEGER, " +
-                ORDER_SIZE + " TEXT)");
+        db.execSQL("CREATE TABLE " + TABLE_ORDERS + " (" +
+                COLUMN_ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_ORDER_PRODUCT_NAME + " TEXT, " +
+                COLUMN_ORDER_PRICE + " REAL)");
     }
 
     @Override
@@ -74,9 +72,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Drop all existing tables and recreate them
         db.execSQL("DROP TABLE IF EXISTS " + SIGNUP_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
-        db.execSQL("DROP TABLE IF EXISTS " + ORDER_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
         onCreate(db);
     }
+
+    public void resetDatabase() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        onUpgrade(db, 1, DATABASE_VERSION);
+    }
+
+
 
     // User Methods
     public boolean insertUser(String name, String email, String phone, String pass) {
@@ -91,14 +96,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean checkUserByUsername(String username, String password) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + SIGNUP_TABLE + " WHERE " +
-                USERNAME_COL + " = ? AND " + PASS_COL + " = ?", new String[]{username, password});
-        boolean exists = cursor.getCount() > 0;
-        cursor.close();
-        return exists;
-    }
 
     // Product Methods
     public void insertProduct(String name, double price, byte[] imageByteArray) {
@@ -136,46 +133,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Order Methods
-    public long insertOrder(String productName, double productPrice, int quantity, String productSize) {
+
+
+    public void insertOrders(String productName, double price) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(ORDER_PRODUCT_NAME, productName);
-        values.put(ORDER_PRODUCT_PRICE, productPrice);
-        values.put(ORDER_QUANTITY, quantity);
-        values.put(ORDER_SIZE, productSize);
-        return db.insert(ORDER_TABLE, null, values);
+        values.put(COLUMN_ORDER_PRODUCT_NAME, productName);
+        values.put(COLUMN_ORDER_PRICE, price);
+        //values.put(COLUMN_ORDER_QUANTITY, quantity);
+        db.insert(TABLE_ORDERS, null, values);
     }
 
-//    public Cursor getAllOrders() {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        return db.rawQuery("SELECT * FROM " + ORDER_TABLE, null);
-//    }
 
 
-    public List<Order> getAllOrders() {
-        List<Order> orderList = new ArrayList<>();
+    public Cursor getAllOrders() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + ORDER_TABLE, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") String productName = cursor.getString(cursor.getColumnIndex("productName"));
-                @SuppressLint("Range") double productPrice = cursor.getDouble(cursor.getColumnIndex("productPrice"));
-                @SuppressLint("Range") int quantity = cursor.getInt(cursor.getColumnIndex("quantity"));
-                @SuppressLint("Range") String productSize = cursor.getString(cursor.getColumnIndex("productSize"));
-
-                Order order = new Order(productName, productPrice, quantity, productSize);
-                orderList.add(order);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-
-        return orderList;
+        return db.rawQuery("SELECT product_name, o_price FROM " + TABLE_ORDERS, null);
     }
+
+
 }
-
-
-
-
-

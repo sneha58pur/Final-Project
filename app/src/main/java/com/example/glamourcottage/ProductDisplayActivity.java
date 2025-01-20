@@ -51,21 +51,6 @@ public class ProductDisplayActivity extends AppCompatActivity {
 
         ProductAdapter adapter = new ProductAdapter(this, productList);
 
-//        ProductAdapter adapter = new ProductAdapter(this, productList, product -> {
-//             //Handle the image click event here
-//            Intent intent = new Intent(ProductDisplayActivity.this, OrderActivity.class);
-//            intent.putExtra("productName", product.getName());
-//            intent.putExtra("productPrice", product.getPrice());
-//            intent.putExtra("productImage", product.getImage());
-//            startActivity(intent);
-//        });
-
-
-
-
-
-
-
 
 
 

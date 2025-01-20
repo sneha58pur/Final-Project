@@ -8,24 +8,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ViewOrderActivity extends AppCompatActivity {
-
-    private TextView productNameTextView, productPriceTextView, quantityTextView, sizeTextView, totalTextView;
-    private ImageView productImageView;
+public class OrderSummeryActivity extends AppCompatActivity {
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_order);
+        setContentView(R.layout.activity_order_summery);
 
         // Initialize views
-        productNameTextView = findViewById(R.id.orderSummaryProductName);
-        productPriceTextView = findViewById(R.id.orderSummaryPrice);
-        quantityTextView = findViewById(R.id.orderSummaryQuantity);
-        sizeTextView = findViewById(R.id.orderSummarySize);
-        totalTextView = findViewById(R.id.orderSummaryTotal);
-        productImageView = findViewById(R.id.orderSummaryImage);
+        TextView productNameTextView = findViewById(R.id.orderSummaryProductName);
+        TextView productPriceTextView = findViewById(R.id.orderSummaryPrice);
+        TextView quantityTextView = findViewById(R.id.orderSummaryQuantity);
+        TextView sizeTextView = findViewById(R.id.orderSummarySize);
+        TextView totalTextView = findViewById(R.id.orderSummaryTotal);
+        ImageView productImageView = findViewById(R.id.orderSummaryImage);
 
         // Get order details from Intent
         String productName = getIntent().getStringExtra("productName");

@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,10 +21,12 @@ public class OrderActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
 
     private TextView productNameTextView, productPriceTextView, quantityTextView, priceTextView;
+
     private RadioGroup sizeRadioGroup;
     private Button incrementButton, decrementButton, placeOrderButton;
     private int quantity = 1;
     private double productPrice;
+
     private String productName, productSize;
     private ImageView productImageView;
     private byte[] productImage;
@@ -35,6 +38,7 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         // Initialize views
+
         productNameTextView = findViewById(R.id.productName);
         productPriceTextView = findViewById(R.id.productPrice);
         quantityTextView = findViewById(R.id.quantityTextView);
@@ -49,14 +53,17 @@ public class OrderActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
 
         // Get product details from Intent
+
         productName = getIntent().getStringExtra("productName");
         productPrice = getIntent().getDoubleExtra("productPrice", 0.0);
+
         productImage = getIntent().getByteArrayExtra("productImage");
 
         // Set the product details to views
         productNameTextView.setText(productName);
         productPriceTextView.setText(String.format("$%.2f", productPrice));
-        priceTextView.setText(String.format("Total: $%.2f", productPrice * quantity));
+
+        priceTextView.setText(String.format("Total: $%.2f", productPrice*quantity));
 
         // If you want to display an image from the byte array, you can use the following:
         if (productImage != null) {
@@ -94,11 +101,11 @@ public class OrderActivity extends AppCompatActivity {
                 productSize = selectedSizeButton.getText().toString();
 
                 // Save order to the database
-                dbHelper.insertOrder(productName, productPrice, quantity, productSize);
+                dbHelper.insertOrders(productName,productPrice);
                 Toast.makeText(OrderActivity.this, "Order placed successfully", Toast.LENGTH_SHORT).show();
 
                 // Pass order details to OrderSummaryActivity
-                Intent intent = new Intent(OrderActivity.this, ViewOrderActivity.class);
+                Intent intent = new Intent(OrderActivity.this, OrderSummeryActivity.class);
                 intent.putExtra("productName", productName);
                 intent.putExtra("productPrice", productPrice);
                 intent.putExtra("quantity", quantity);
@@ -106,8 +113,9 @@ public class OrderActivity extends AppCompatActivity {
                 intent.putExtra("productImage", productImage); // Pass image as byte array
                 startActivity(intent);
             } else {
-                Toast.makeText(OrderActivity.this, "Please select a size", Toast.LENGTH_SHORT).show();
+               Toast.makeText(OrderActivity.this, "Please select a size", Toast.LENGTH_SHORT).show();
             }
+
         });
 
 

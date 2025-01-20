@@ -3,35 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="16dp"
+    android:layout_marginBottom="8dp"
+    >
 
+    <!-- Product name TextView -->
     <TextView
-        android:id="@+id/orderProductNameTextView"
+        android:id="@+id/tv_order_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-
-        android:text="@string/product_name_view" />
-
-    <TextView
-        android:id="@+id/orderPriceTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="@string/product_name_or"
         android:textSize="16sp"
-        android:text="@string/product_price_view" />
+        android:textColor="#000000" />
 
+    <!-- Price TextView -->
     <TextView
-        android:id="@+id/orderQuantityTextView"
+        android:id="@+id/tv_order_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/price"
         android:textSize="16sp"
-        android:text="@string/product_quantity_view" />
+        android:textColor="#000000" />
 
+    <!-- Quantity TextView -->
 
-    <TextView
-        android:id="@+id/orderSizeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/product_size_view"/>
 </LinearLayout>
