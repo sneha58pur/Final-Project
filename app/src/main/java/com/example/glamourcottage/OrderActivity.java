@@ -22,6 +22,7 @@ public class OrderActivity extends AppCompatActivity {
 
     private TextView productNameTextView, productPriceTextView, quantityTextView, priceTextView;
 
+
     private RadioGroup sizeRadioGroup;
     private Button incrementButton, decrementButton, placeOrderButton;
     private int quantity = 1;
@@ -31,7 +32,7 @@ public class OrderActivity extends AppCompatActivity {
     private ImageView productImageView;
     private byte[] productImage;
 
-    @SuppressLint("DefaultLocale")
+    @SuppressLint({"DefaultLocale", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,9 @@ public class OrderActivity extends AppCompatActivity {
         quantityTextView = findViewById(R.id.quantityTextView);
         priceTextView = findViewById(R.id.priceTextView);
         productImageView = findViewById(R.id.productImage);
+
+
+
         sizeRadioGroup = findViewById(R.id.radioGroup);
         incrementButton = findViewById(R.id.increment);
         decrementButton = findViewById(R.id.decrement);
@@ -58,6 +62,8 @@ public class OrderActivity extends AppCompatActivity {
         productPrice = getIntent().getDoubleExtra("productPrice", 0.0);
 
         productImage = getIntent().getByteArrayExtra("productImage");
+
+
 
         // Set the product details to views
         productNameTextView.setText(productName);
@@ -101,7 +107,7 @@ public class OrderActivity extends AppCompatActivity {
                 productSize = selectedSizeButton.getText().toString();
 
                 // Save order to the database
-                dbHelper.insertOrders(productName,productPrice);
+                dbHelper.insertOrders(productName,productPrice*quantity);
                 Toast.makeText(OrderActivity.this, "Order placed successfully", Toast.LENGTH_SHORT).show();
 
                 // Pass order details to OrderSummaryActivity

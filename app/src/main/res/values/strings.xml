@@ -69,6 +69,11 @@
     <string name="product_name_or">Product Name</string>
     <string name="price">Product Price</string>
     <string name="order_list_by_user">Order List By User</string>
+    <string name="order_id">Order ID</string>
+    <string name="order_number">Order Number</string>
+    <string name="product_name_all">Product Name</string>
+    <string name="Product_price">Price</string>
+    <string name="price_order">Total Price</string>
 
 
 </resources>

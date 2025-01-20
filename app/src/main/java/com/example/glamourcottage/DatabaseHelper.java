@@ -1,14 +1,10 @@
 package com.example.glamourcottage;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Database Constants
@@ -138,9 +134,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertOrders(String productName, double price) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
         values.put(COLUMN_ORDER_PRODUCT_NAME, productName);
         values.put(COLUMN_ORDER_PRICE, price);
-        //values.put(COLUMN_ORDER_QUANTITY, quantity);
+
+
         db.insert(TABLE_ORDERS, null, values);
     }
 

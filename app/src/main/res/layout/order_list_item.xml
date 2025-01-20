@@ -7,6 +7,12 @@
     android:layout_marginBottom="8dp"
     >
 
+
+
+
+
+
+
     <!-- Product name TextView -->
     <TextView
         android:id="@+id/tv_order_name"
@@ -16,6 +22,13 @@
         android:textSize="16sp"
         android:textColor="#000000" />
 
+    <TextView
+        android:id="@+id/tv_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/price_order"
+       android:textSize="16sp"
+        android:textColor="#000000" />
     <!-- Price TextView -->
     <TextView
         android:id="@+id/tv_order_price"

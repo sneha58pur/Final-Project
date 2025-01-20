@@ -51,6 +51,7 @@ public class ProductAdapter extends BaseAdapter {
             holder.productName = convertView.findViewById(R.id.productName);
             holder.productPrice = convertView.findViewById(R.id.productPrice);
             holder.productImage = convertView.findViewById(R.id.productImage);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

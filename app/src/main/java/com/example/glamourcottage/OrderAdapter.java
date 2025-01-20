@@ -8,11 +8,13 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.BreakIterator;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -38,7 +40,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         if (cursor != null && cursor.moveToPosition(position)) {
             @SuppressLint("Range") String productName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_ORDER_PRODUCT_NAME));
             @SuppressLint("Range") double price = cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.COLUMN_ORDER_PRICE));
-            //int quantity = cursor.getInt(cursor.getColumnIndex(DatabaseHelp.COLUMN_ORDER_QUANTITY));
+
 
 
             NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.getDefault());
@@ -46,6 +48,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
             holder.productNameTextView.setText(productName);
             holder.priceTextView.setText(formattedPrice);
+
+
 
         }
     }
@@ -66,14 +70,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
+
         TextView productNameTextView;
         TextView priceTextView;
 
 
         public OrderViewHolder(View itemView) {
             super(itemView);
+
             productNameTextView = itemView.findViewById(R.id.tv_order_name);
             priceTextView = itemView.findViewById(R.id.tv_order_price);
+
 
         }
     }
