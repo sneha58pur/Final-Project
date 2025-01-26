@@ -74,6 +74,8 @@
     <string name="product_name_all">Product Name</string>
     <string name="Product_price">Price</string>
     <string name="price_order">Total Price</string>
+    <string name="quantity">Quantity</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
 
 
 </resources>

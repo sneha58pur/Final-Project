@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="#F8BBD0"
     android:padding="16dp">
 
     <ImageView
@@ -36,7 +37,7 @@
         android:textColor="#EC407A"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
-        android:background="#C8E6C9"
+
         />
 
     <RadioGroup
@@ -68,12 +69,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_to_cart"
+        android:text="@string/quantity"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:textColor="#EC407A"
-        android:background="#C8E6C9"
+
         />
 
     <LinearLayout

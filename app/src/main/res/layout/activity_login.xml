@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/main"
@@ -12,7 +12,13 @@
         tools:context=".MainActivity"
 
         tools:ignore="ExtraText">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        >
 
     <TextView
         android:id="@+id/tv_login_title"
@@ -32,17 +38,26 @@
         android:background="@drawable/surround"
         android:backgroundTint="#FFE0B2"
         android:orientation="vertical"
+        android:gravity="center"
 
         android:padding="20dp">
 
 
-
+<!--        <TextView-->
+<!--            android:id="@+id/tv_login_title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="24dp"-->
+<!--            android:text="@string/login_title"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="30sp"-->
+<!--            android:textStyle="bold" />-->
 
 
         <EditText
             android:id="@+id/et_email"
-            android:layout_width="325dp"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:autofillHints=""
             android:background="@android:drawable/edit_text"
@@ -53,8 +68,8 @@
 
         <EditText
             android:id="@+id/et_password"
-            android:layout_width="325dp"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
             android:layout_marginBottom="20dp"
             android:autofillHints=""
@@ -67,33 +82,66 @@
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="20dp"
-            android:padding="12dp"
-            android:text="@string/loginTitle" />
 
+            android:text="@string/loginTitle"
+        />
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_notice"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="24dp"-->
+<!--            android:text="@string/tv_notice"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textSize="15sp"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_sign"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:backgroundTint="#2A3E2B"-->
+<!--            android:padding="12dp"-->
+<!--            android:text="@string/sign_up"-->
+<!--            android:textColor="@android:color/white" />-->
+<!--        -->
 
         <TextView
-            android:id="@+id/tv_notice"
-            android:layout_width="wrap_content"
+            android:id="@+id/register"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="@string/tv_notice"
-            android:textColor="@color/black"
+            android:text="@string/don_t_have_an_account_sign_up"
             android:textAlignment="center"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btn_sign"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#2A3E2B"
-            android:padding="12dp"
-            android:text="@string/sign_up"
-            android:textColor="@android:color/white" />
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            />
     </LinearLayout>
-</LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+<!--</LinearLayout>-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+<ProgressBar
+    android:id="@+id/progressBar"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_gravity="center"
+    android:visibility="gone"
+    />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

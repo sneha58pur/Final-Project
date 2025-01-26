@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText nameEditText, emailEditText, phoneEditText;
     private TextInputEditText passEditText;
     private Spinner genderSpinner;
+    private ProgressBar progressBar;
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
 
@@ -44,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private Pattern emailPattern = Pattern.compile("^(cse_)\\d{15}(@lus.ac.bd)$");
+    //private Pattern emailPattern = Pattern.compile("[a-z]+@(gmail|yahoo).com" );
 
     private final Pattern phonePattern = Pattern.compile("01[578][0-9]{8}");
     private final Pattern passPattern = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$%^&+=!]).{8,}");
@@ -65,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
         phoneEditText = findViewById(R.id.et_register_mobile);
         passEditText = findViewById(R.id.pass);
         genderSpinner = findViewById(R.id.spinner);
+        progressBar = findViewById(R.id.progressBar);
         Button sign = findViewById(R.id.btn_signRegister);
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
@@ -121,6 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
             } else if ("Gender :".equals(gender)) {
                 Toast.makeText(this, "Please select a gender", Toast.LENGTH_SHORT).show();
             } else {
+                progressBar.setVisibility(View.VISIBLE);
                 auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
